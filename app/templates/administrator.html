@@ -1,0 +1,69 @@
+{% extends "abase.html" %}
+
+{% block info %}
+
+  <h2 id="all_users" class="page-header">用户管理
+      {% if users.has_next %}   
+      <a class="btn btn-small pull-right" href="{{ url_for('administrator', page = gives.next_num) }}">
+      <span >
+        下一页
+      </span>
+      </a>
+      {% endif %} 
+      {% if users.has_prev %}   
+      <a class="btn btn-small pull-right" href="{{ url_for('administrator', page = gives.prev_num) }}">
+      <span >
+        上一页
+      </span>
+      </a>
+      {% endif %} 
+      </h2>
+  <div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>
+        <span>Username</span>
+      </th>
+      <th>
+        <span>Status</span>
+      </th>
+      <th>
+        <span>Operation</span>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for u in users.items %}
+    <tr>
+    <td>
+      <a id="{{u.id}}" class="theme-login" href="javascript:;">{{ u.username }}
+      </a>
+    </td>
+
+    <td>
+      {% if u.is_ban %}
+        <span style="color:red">Banned</span>
+      {% else %}
+        <span>Normal</span>
+      {% endif %}
+    </td>
+
+    <td>
+      {% if not u.is_admin %}
+        {% if u.is_ban %}
+          <a class="btn btn-xs btn-success" href="{{url_for('unban_user', userid = u.id )}}?page={{users.page}}">Unban</a>
+        {% else %}
+          <a class="btn btn-xs btn-danger" href="{{url_for('ban_user', userid = u.id )}}?page={{users.page}}">Ban</a>
+        {% endif %}
+      {% endif %}
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+   
+
+{% endblock %}

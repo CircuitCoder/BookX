@@ -1,0 +1,70 @@
+{% extends "ubase.html" %}
+
+{% block info %}
+
+	    <h2 id="gives" style="color:#000000">发布的图书
+			{% if gives.has_next %}		
+			<a class="btn btn-small pull-right" href="{{ url_for('u_give', page = gives.next_num) }}">
+			<span>
+				下一页
+			</span>
+			</a>
+			{% endif %} 
+			{% if gives.has_prev %}		
+			<a class="btn btn-small pull-right" href="{{ url_for('u_give', page = gives.prev_num) }}">
+			<span>
+				上一页
+			</span>
+			</a>
+			{% endif %} 
+		</h2>
+		<div class="table-responsive">
+			<table id="proj_list" class="table table-striped">
+				<thead>
+				<tr>
+
+				<th><h5>图书种类</h5></th>
+
+				<th><h5>书名</h5></th>
+
+				<th><h5>发布时间</h5></th>
+				<th><h5>状态</h5></th>
+				</tr>
+				</thead>
+
+				<tbody>
+				{% for give in gives.items %}
+
+				<tr id="{{give.book_id}}">
+
+				<td>
+				<span id="category" class="category">
+
+				{{give.book.category}}
+
+				</span>
+				</td>
+				<td>
+				<a href="{{url_for('info',b_id=give.book_id)}}">{{give.book.name}}</a>
+				</td>
+				<td>{{give.time.strftime("%Y-%m-%d %H:%M")}}</td>
+				<td>
+					<p>
+					{% if give.status == 0 %}
+					待审核
+					{% elif give.status == 1 %}
+					已通过
+					{% else %}
+					已拒绝
+					{% endif %}
+					</p>
+				</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% endblock %}
+
+
+

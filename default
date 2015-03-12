@@ -1,0 +1,12 @@
+server {
+    listen  80;
+    server_name 182.92.182.54; 
+  
+    location / {
+    include      uwsgi_params;
+    uwsgi_pass   127.0.0.1:8001;  
+    uwsgi_param UWSGI_PYHOME /home/book/BookX/venv;
+    uwsgi_param UWSGI_CHDIR /home/book/BookX;
+    uwsgi_param UWSGI_SCRIPT manage:app;
+    }
+  }

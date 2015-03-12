@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row"><font size="2px">
+  <div class="col-md-4 col-md-offset-2">
+<h3 style="color:#000000">一次登陆，</h3>
+<h3 style="color:#000000">畅享BookX所有图书</h3>
+<h5>在BookX中您可以把自己闲置的图书拿出交换并得到自己需要的书。</h5>
+<h5>我们会给您提供一切所能提供的服务，尽量保证您能交换到心仪的图书</h5>
+<h5>BookX给书一个重生的机会。感谢您的加入！</h5><br/>
+ <img src="{{url_for('static',filename='img/newlogo.png')}}" width="350px">
+ </div>
+<!-- <div class="navbar">
+<img src="{{ url_for('static',filename='img/logo_bookx.png') }}">
+</div> -->
+<div class="col-md-5" align="right">
+<form method="post">
+	{{form.hidden_tag()}}
+
+    <div class="form-group row">
+        <label for="username" class="control-label col-md-2" style="color:#000000">{{form.username.label}}</label>
+        <div class="col-md-6">
+        	{{form.username(class_='form-control')}}
+        </div>
+    </div>
+		
+		
+	<div class="form-group row">
+        <label for="password" class="control-label col-md-2" style="color:#000000">{{form.password.label}}</label>
+        <div class="col-md-6">
+        	{{form.password(class_='form-control')}}
+        </div>
+    </div>
+
+	<div class="form-group row">
+        <label for="password_again" class="control-label col-md-2" style="color:#000000">{{form.password_again.label}}</label>
+        <div class="col-md-6">
+        	{{form.password_again(class_='form-control')}}
+        </div>
+    </div>
+
+	<div class="form-group row">
+        <label for="mail" class="control-label col-md-2" style="color:#000000">{{form.mail.label}}</label>
+        <div class="col-md-6">
+        	{{form.mail(class_='form-control',type='email')}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="tel" class="control-label col-md-2" style="color:#000000">{{form.tel.label}}</label>
+        <div class="col-md-6">
+            {{form.tel(class_='form-control',type='number',placeholder='手机号')}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="school" class="control-label col-md-2" style="color:#000000">{{form.school.label}}</label>
+        <div class="col-md-6">
+            {{form.school(class_='form-control')}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="address" class="control-label col-md-2" style="color:#000000">{{form.address.label}}</label>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3" name="address" placeholder="请填写详细地址"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-offset-2 col-md-4">
+       <!--  <h4>最终解释权归BookX所有</h4> -->
+            <button class="btn btn-success" type="submit">立即注册
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+{% endblock %}

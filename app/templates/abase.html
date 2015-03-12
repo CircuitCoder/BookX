@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery.min2.js') }}"></script>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+  $('.theme-login').click(function(){
+    u_id = $(this).attr('id');
+    $.ajax({
+    type: 'get',
+    url: '/administrator/getinfo/'+u_id,
+    error: function(xhr, err){
+    alert('请求失败，原因可能是：' + err + '！')
+    },
+    success: function(data, textStatus){
+      var jsonData = JSON.parse(data);
+    $('#username').html(jsonData.username);
+    $('#mail').html(jsonData.mail);
+    $('#tel').html(jsonData.tel);
+    $('#school').html(jsonData.school);
+    $('#address').html(jsonData.address);
+    }
+    });
+    $('.theme-popover-mask').fadeIn(100);
+    $('.theme-popover').slideDown(200);
+  })
+  $('.theme-poptit .close').click(function(){
+    $('.theme-popover-mask').fadeOut(100);
+    $('.theme-popover').slideUp(200);
+  });
+});
+  //$('.plask-sidebar').scrollspy();
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lanrenzhijia.css')}}" media="all">
+{% endblock %}
+
+{% block content %}
+<div class="theme-popover">
+     <div class="theme-poptit">
+            <a href="javascript:;" title="关闭" class="close">×</a>
+            <h3>用户信息</h3>
+     </div>
+     <div class="theme-popbod dform">
+            <div class="form-group row">
+                <label for="username" class="control-label col-md-3" style="color:#000000">用户名</label>
+                <div class="col-md-9">
+                  <label id="username" class="control-label col-md-3" style="color:#000000"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="mail" class="control-label col-md-3" style="color:#000000">邮箱</label>
+                <div class="col-md-9">        
+                  <label id="mail" class="control-label col-md-3" style="color:#000000"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tel" class="control-label col-md-3" style="color:#000000">手机号</label>
+                <div class="col-md-9">
+                    <label id="tel" class="control-label col-md-3" style="color:#000000"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="school" class="control-label col-md-3" style="color:#000000">学校</label>
+                <div class="col-md-9">
+                    <label id="school" class="control-label col-md-3" style="color:#000000"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                  <label for="address" class="control-label" style="color:#000000">详细地址</label>
+                </div>
+                <div class="col-md-9">
+                    <label id="address" class="control-label col-md-3" style="color:#000000"/>
+                </div>
+            </div>
+     </div>
+
+</div>
+ <div class="theme-popover-mask"></div>
+ <div class="container-fluid">
+<div class="col-md-10 col-md-offset-1">
+<div class="col-md-1">
+  <div id="plask-sidebar" class="plask-sidebar hidden-print hidden-xs hidden-sm">
+    <ul class="nav plask-sidenav">
+      <li>
+        <a href="{{url_for('administrator')}}"><span class="glyphicon glyphicon-user"></span>&nbsp;用户管理</a>
+      </li>
+      <li>
+        <a href="{{url_for('a_give')}}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;收到的新书</a>
+      </li>
+      <li>
+        <a href="{{url_for('a_get')}}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;未处理订单</a>
+      </li>
+      <li>
+        <a href="{{url_for('a_confirm')}}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;配送中订单</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="col-md-11">
+  
+  <h1>Administrator</h1>
+  <hr/>
+
+  {% block info %}{% endblock %}
+</div>
+</div>
+</div>
+{% endblock %}

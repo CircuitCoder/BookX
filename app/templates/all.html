@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+        <form name="search" action="/booklist">
+            <div class="col-xs-4 col-md-2 col-md-offset-1">
+                <select class="form-control" name="category">
+                  <option>全部分类</option>
+                  <option>文学</option>
+                  <option>数学</option>
+                  <option>物理</option>
+                  <option>化学</option>
+                  <option>出国</option>
+                  <option>其它</option>
+                </select>
+            </div>
+            <div class="col-xs-8 col-md-7" style="margin-left:-30px">
+                <input class="form-control" type="input" name="bookname"></input>
+            </div>
+            <div class="col-xs-1 col-md-1" style="margin-left:-30px;margin-top:-1px">
+                <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
+            </div>
+        </form>
+    </div>
+    <hr/>
+	<div class="row col-md-10 col-md-offset-1" align="center">	
+		<div class="row" align="center">
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=文学">
+			<img src="{{url_for('static',filename='img/literature.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>文学</B></font>
+			<hr/>
+		</a>
+		</div>
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=数学">
+			<img src="{{url_for('static',filename='img/mathematics.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>数学</B></font>
+			<hr/>
+		</a>
+		</div>
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=物理">
+			<img src="{{url_for('static',filename='img/physics.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>物理</B></font>
+			<hr/>
+		</a>
+		</div>
+		</div>
+		<div class="row" align="center">
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=化学">
+			<img src="{{url_for('static',filename='img/chemitsry.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>化学</B></font>
+			<hr/>
+		</a>
+		</div>
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=出国">
+			<img src="{{url_for('static',filename='img/abroad.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>出国</B></font>
+			<hr/>
+		</a>
+		</div>
+		<div class="col-md-4" align="center">
+		<a href="/booklist?category=其它">
+			<img src="{{url_for('static',filename='img/others.jpg')}}"/>
+			<br/>
+			<font size="4px" color="#838B8B"><B>其它</B></font>
+			<hr/>
+		</a>
+		</div>
+		</div>
+	</div>
+{% endblock %}

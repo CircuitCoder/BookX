@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="col-md-10 col-md-offset-1">
+<div class="col-md-1">
+  <div id="plask-sidebar" class="plask-sidebar hidden-print hidden-xs hidden-sm">
+    <ul class="nav plask-sidenav">
+      <li>
+        <a href="{{url_for('user')}}" style="color:#000000"><span class="glyphicon glyphicon-user"></span>&nbsp;个人信息</a>
+      </li>
+      <li>
+        <a href="{{url_for('u_give')}}" style="color:#000000"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;发布的图书</a>
+      </li>
+      <li>
+        <a href="{{url_for('u_get')}}" style="color:#000000"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;预订的图书</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-11">
+
+
+        <h3 style="margin-top:25px; color:#000000">Welcome, {{user.username}}</h3>
+        <hr/>
+        {% block info %}{% endblock %}
+
+</div>
+</div>
+</div>
+{% endblock %}
+
+
+

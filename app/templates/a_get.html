@@ -1,0 +1,66 @@
+{% extends "abase.html" %}
+
+{% block info %}
+
+  <h2 id="new_gets" class="page-header">未处理订单
+      {% if new_gets.has_next %}   
+      <a class="btn btn-small pull-right" href="{{ url_for('a_get', page = gives.next_num) }}">
+      <span >
+        下一页
+      </span>
+      </a>
+      {% endif %} 
+      {% if new_gets.has_prev %}   
+      <a class="btn btn-small pull-right" href="{{ url_for('a_get', page = gives.prev_num) }}">
+      <span >
+        上一页
+      </span>
+      </a>
+      {% endif %} 
+      </h2>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>
+        <span>Name</span>
+      </th>
+      <th>
+        <span>Create time</span>
+      </th>
+      <th>
+        <span>User</span>
+      </th>
+      <th>
+        <span>Operation</span>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for get in new_gets.items %}
+    <tr>
+    <td>
+      <a href="{{url_for('info', b_id = get.book_id )}}">{{ get.book.name }}</a>
+    </td>
+
+    <td>
+      <p>{{ get.time.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+    </td>
+
+    <td>
+      <a id="{{get.user.id}}" class="theme-login" href="javascript:;">{{ get.user.username }}
+      </a>
+    </td>
+
+    <td>
+        <a class="btn btn-xs btn-success" href="{{url_for('check_get', g_id = get.id )}}?act=pass&page={{new_gets.page}}">Pass</a>
+        <a class="btn btn-xs btn-danger" href="{{url_for('check_get', g_id = get.id )}}?act=reject&page={{new_gets.page}}">Reject</a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

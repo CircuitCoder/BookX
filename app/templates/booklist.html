@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $(".booklist").hover(function(){
+  	$(".img-btn").show();
+  },function(){
+  	$(".img-btn").hide();
+  });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+        <form name="search" action="/booklist">
+            <div class="col-md-2 col-md-offset-1">
+                <select class="form-control" name="category">
+                  <option>全部分类</option>
+                  <option>文学</option>
+                  <option>数学</option>
+                  <option>物理</option>
+                  <option>化学</option>
+                  <option>出国</option>
+                  <option>其它</option>
+                </select>
+            </div>
+            <div class="col-md-7">
+                <input class="form-control" type="input" name="bookname"></input>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
+            </div>
+        </form>
+    </div>
+    <hr/>
+<div class="row">
+
+<div>
+{% if category and not category=='all' %}
+<img src="{{url_for('static',filename='img/'+category+'.png')}}"/>
+<hr />
+{% endif %}
+</div>
+<div class="row booklist">	
+	<div id="book_list"    class="row col-md-10 col-md-offset-1" align="center">
+		
+			{% for b in books.items %}
+			<div class="col-md-3"  align="center">
+			<div>
+			<a href="{{url_for('info',b_id=b.id)}}">
+				<img src="{{url_for('static',filename='upload/'+b.img)}}" width="150px" height="200px"/>
+				<br/>
+				<font size="4px" color="#838B8B"><B>{{b.name}}</B></font>
+			</a>
+			</div>
+			<hr/>
+			</div>
+			{% endfor %}
+	</div>
+		<div style="position: absolute;left: 50%;top: 50%;margin: 10px 0 0 -550px;width: 40px;height: 72px;">
+		{% if books.has_prev %}
+		{% if category and not category=='all'%}
+		<a href="{{ url_for('booklist', page = books.prev_num) }}?category={{books.items[0].category}}">
+		{% else %}
+		<a href="{{ url_for('booklist', page = books.prev_num) }}">
+		{% endif %}
+		<span class="img-prev">
+			<img class="img-btn" style="display:none" src="{{url_for('static',filename='img/left_btn.png')}}"/>
+		</span>
+		</a>{% endif %} 
+		</div>
+		<div style="position: absolute;left: 50%;top: 50%;margin: -50px 0 0 500px;width: 40px;height: 72px;">
+		{% if books.has_next %}
+		{% if category and not category=='all' %}
+		<a href="{{ url_for('booklist', page = books.next_num) }}?category={{books.items[0].category}}">
+		{% else %}
+		<a href="{{ url_for('booklist', page = books.next_num) }}">
+		{% endif %}
+		<span class="img-next">
+			<img  class="img-btn" style="display:none" src="{{url_for('static',filename='img/right_btn.png')}}"/>
+		</span>
+		</a>{% endif %}
+		</div>
+
+</div>
+	<hr/>
+</div>
+</div>
+{% endblock %}
+
+
+

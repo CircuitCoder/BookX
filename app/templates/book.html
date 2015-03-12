@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery.dialog.js') }}"></script>
+<script type="text/javascript">
+function cf(action,bookid){
+     $("#"+action).dialog({
+          title:    "确认操作"
+        , 'class':  "mydialog"  /*add custom class for this dialog*/
+        , onClose: function() { $(this).dialog("close"); }
+        , buttons: [
+            {
+                text: "确定"
+              , 'class': "btn-success"
+              , click: function() {
+                  /*your login handler*/
+                window.location.href="/"+action+"/"+bookid;
+                  $(this).dialog("close");
+                }
+            },
+            {
+                text: "取消"
+              , classed: "btn-error"  /*classed equal to 'class'*/
+              , click: function() {
+                  /*your login handler*/
+ 
+                  $(this).dialog("destroy");
+                }
+            }
+          ]
+      });
+}
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+        <form name="search" action="/booklist">
+            <div class="col-md-2 col-md-offset-1">
+                <select class="form-control" name="category">
+                  <option>全部分类</option>
+                  <option>文学</option>
+                  <option>数学</option>
+                  <option>物理</option>
+                  <option>化学</option>
+                  <option>出国</option>
+                  <option>其它</option>
+                </select>
+            </div>
+            <div class="col-md-7">
+                <input class="form-control" type="input" name="bookname"></input>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
+            </div>
+        </form>
+    </div>
+    <hr/>
+<div class="row col-md-10 col-md-offset-1">
+
+<div class="col-md-4">
+        <img src="{{url_for('static',filename='upload/'+book.img)}}" width="200px" height="250px"/>
+</div>
+
+<div class="col-md-8">
+        <div class="form-group row">
+            <label for="name" class="control-label col-md-4" style="color:#000000">书籍名称</label>
+            <div class="col-md-8">
+                {{book.name}}
+            </div>
+        </div>         
+
+        <div class="form-group row">
+            <label for="author" class="control-label col-md-4" style="color:#000000">作者</label>
+            <div class="col-md-8">
+                {{book.author}}
+            </div>
+        </div>
+            
+        <div class="form-group row">
+            <label for="category" class="control-label col-md-4" style="color:#000000">书籍类别</label>
+            <div class="col-md-8">
+                {{book.category}}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="press" class="control-label col-md-4" style="color:#000000">出版社</label>
+            <div class="col-md-8">
+                {{book.press}}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="note" class="control-label col-md-4" style="color:#000000">是否有批注/笔记</label>
+            <div class="col-md-8">
+                {{book.note}}
+            </div>
+        </div>
+
+        {% if g.user %}
+		{% if g.user.is_admin %}
+	    	<div class="form-group row">
+	            <label for="note" class="control-label col-md-4" style="color:#000000">数目</label>
+	            <div class="col-md-8">
+	                {{book.num}}
+	            </div>
+	        </div>
+            <div class="col-md-offset-1">
+	    	<a class="btn btn-primary" href="{{url_for('delete',b_id=book.id)}}">删除这本书</a>
+	    	<a class="btn btn-primary" href="{{url_for('modify',b_id=book.id)}}">修改这本书</a>
+	   		{% if book.status == False %}
+	    	<a class="btn btn-primary" href="{{url_for('check_give',g_id=book.gives[0].id)}}?act=pass">pass</a>
+	    	<a class="btn btn-primary" href="{{url_for('check_give',g_id=book.gives[0].id)}}?act=reject">reject</a>
+	    	{% else %}
+	    	<a class="btn btn-primary" href="{{url_for('give',b_id=book.id)}}">提供这本书</a>
+	    	{% endif %}
+            </div>
+	    	<!-- {% if book.status == True %}
+	    	<script type="text/javascript">
+	    	function setbooknum(){
+	    		console.log($("#setbnum").attr('value'));
+	    		window.location="{{url_for('set',b_id=book.id)}}"+"?num="+$("#setbnum").attr('value');
+	    	}
+	    	</script>
+	    	<input id="setbnum"/>
+	    	<a href="javascript:setbooknum()">设置书本数目</a>
+	    	{% endif %} -->
+        {% elif book.status == True %}
+            <div class="col-md-offset-1">
+	    	<button class="btn btn-primary" onclick="cf('give',{{book.id}})">提供这本书</button>
+	    	{% if book.num>0 %}
+	    		<button class="btn btn-primary" onclick="cf('get',{{book.id}})">预订这本书</button>
+            {% else %}
+                <small>缺货</small>
+	    	{% endif %}
+	    {% else %}
+	    	<a class="btn btn-primary" href="{{url_for('modify',b_id=book.id)}}">修改这本书</a>
+            </div>
+    	{% endif %}
+        {% else %}
+            <a class="btn btn-primary" href="{{url_for('login')}}?next=/book/{{book.id}}/info">登陆后预订</a>
+        {% endif %}
+        <div style="display:none">
+        <div id="give">
+            <h4>你确定要提供这本书吗？</h4>
+        </div>
+         <div id="get">
+            <h4>你确定要预订这本书吗？</h4>
+        </div>
+        </div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+
+
