@@ -1,0 +1,11 @@
+img.upload {
+  max-width: 100%;
+  max-height: 300px;
+  display: inline;
+}
+
+.theme-login {
+  text-align: center;
+  line-height: 300px;
+  height: 300px;
+}
