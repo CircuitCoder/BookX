@@ -7,6 +7,9 @@ body {
     margin-bottom: 60px;
     font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, simsun, sans-serif;
     /*background: url(/static/img/plask_back_pic.jpg) fixed;*/
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .maindiv {
