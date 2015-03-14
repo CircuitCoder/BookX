@@ -2,3 +2,6 @@ venv
 logs
 app.db
 app/static/upload
+
+*.pyc
+*.sw[a-p]

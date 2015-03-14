@@ -2,7 +2,7 @@ $(function(){
 	// 初始化插件
 	$("#demo").zyUpload({
 		width            :   "650px",                 // 宽度
-		height           :   "800px",                 // 宽度
+		height           :   "400px",                 // 宽度
 		itemWidth        :   "120px",                 // 文件项的宽度
 		itemHeight       :   "100px",                 // 文件项的高度
 		url              :   "/book/upload",  // 上传文件的路径
